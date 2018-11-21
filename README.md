@@ -1,24 +1,32 @@
-# README
+### Getting Started
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Ruby on rails 5 Calendar example. You can have a look at the video below. You can find the front-end example chat made with vuejs at https://github.com/cannyedge34/calendar-front-end.git
 
-Things you may want to cover:
+This project was bootstrapped with Ruby on Rails 5. It is not tested in production environment, it is just an example app. So, use it under your responsibility.
 
-* Ruby version
+![Alt Text](demo.gif)
 
-* System dependencies
+Checkout this repo, install dependencies, then start rails server with the following:
 
-* Configuration
+```
+> git clone https://github.com/cannyedge34/calendar-back-end.git
+> cd calendar-back-end
+> bundle install
+> rails db:migrate
+> rails s
+```
 
-* Database creation
+``` 
+1. Instructions
+  Install httpie from https://httpie.org/ or postman from https://www.getpostman.com/
+4. Create a new event
+  http --form POST :3000/events title="Event 1" start_date="Tue, 20 Nov 2018" end_date="Thu, 22 Nov 2018" description="Description of event 1" 
+6. Get all events
+  http :3000/events
+```
 
-* Database initialization
+**All test are passed. You should run:**
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+bundle exec rspec
+```
