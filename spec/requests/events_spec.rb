@@ -23,10 +23,10 @@ RSpec.describe 'Requests API', type: :request do
 
   # Test suite for POST /events
   describe 'POST /events' do
-    # valid payload
-    let(:valid_attributes) { {title: 'Learn Vue', start_date: Time.zone.now} }
-
     context 'when the request is valid' do
+      # valid payload
+      let(:valid_attributes) { {title: 'Learn Vue', start_date: Time.zone.now} }
+
       before { post '/events', params: valid_attributes }
 
       it 'creates a event' do
@@ -48,6 +48,24 @@ RSpec.describe 'Requests API', type: :request do
       it 'returns a validation failure message' do
         expect(response.body).to eq(
           '{"message":"Validation failed: Title can\'t be blank, Start date can\'t be blank"}'
+        )
+      end
+    end
+
+    context 'when end_date is before start_date' do
+      # invalid payload
+      let(:invalid_attributes) do
+        {title: 'Learn Vue', start_date: Date.tomorrow, end_date: Time.zone.today}
+      end
+      before { post '/events', params: invalid_attributes }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'returns a validation failure message' do
+        expect(response.body).to eq(
+          '{"message":"Validation failed: End date invalid_date"}'
         )
       end
     end
